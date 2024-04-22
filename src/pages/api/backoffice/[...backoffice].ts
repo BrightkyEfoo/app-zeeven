@@ -24,13 +24,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
     }
   } catch (error: any) {
     const axiosError = error as Error | AxiosError;
+
     if (axios.isAxiosError(axiosError)) {
       const axiosError = error as Error | AxiosError;
       if (axios.isAxiosError(axiosError)) {
         const { status, response } = error;
+        console.log('response', response.data)
 
         if (status === 401 || (response && response.status && response.status === 401)) {
-          console.log('response', response)
           res.status(401).json({ message: 'Veuillez vous connecter' });
           return;
         }

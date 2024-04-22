@@ -25,8 +25,8 @@ const SondagePage = () => {
   const answerSondage = (data: any) => {
     const answers = Object.keys(data).map((key) => {
       return {
-        value: typeof data[key] === 'number' || data[key] instanceof Number ? null : data[key],
-        choice: typeof data[key] === 'number' || data[key] instanceof Number ? data[key] : null,
+        value: typeof data[key] === 'number' || data[key] instanceof Number ? undefined : data[key],
+        choice: typeof data[key] === 'number' || data[key] instanceof Number ? data[key] : undefined,
         question: Number(key.split('_')[1]),
       };
     });
@@ -38,7 +38,9 @@ const SondagePage = () => {
       firstName: '',
       lastName: '',
       sondage: sondageQuery.data?.id || router.query.slug,
-      answers,
+      answers: {
+        create: answers,
+      },
     };
 
     return add('/api/backoffice/survey_answer_sheet', postObj);
