@@ -29,7 +29,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
       const axiosError = error as Error | AxiosError;
       if (axios.isAxiosError(axiosError)) {
         const { status, response } = error;
-        console.log('response', response.data)
+        console.log('response', response.data.errors)
 
         if (status === 401 || (response && response.status && response.status === 401)) {
           res.status(401).json({ message: 'Veuillez vous connecter' });
